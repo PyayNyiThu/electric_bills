@@ -160,19 +160,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <th>Cost</th>
                         </tr>
                         <tr>
-                            <th> 35 x </th>
                             <?php
-                            if ($unit >= 0 && $unit <= 30) {
+                            if (isset($user_type) && $user_type == "home_use") {
                             ?>
-                                <th> <?php echo $unit; ?> </th>
+                                <th> 35 x </th>
+                                <?php
+                                if ($unit >= 0 && $unit <= 30) {
+                                ?>
+                                    <th> <?php echo $unit; ?> </th>
+                                <?php
+                                } else if ($unit > 30) {
+                                ?>
+                                    <th> 30 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $first_unit; ?></td>
                             <?php
-                            } else if ($unit > 30) {
+                            } else if (isset($user_type) && $user_type == "industry_use") {
                             ?>
-                                <th> 30 </th>
+                                <th> 125 x </th>
+                                <?php
+                                if ($unit >= 0 && $unit <= 500) {
+                                ?>
+                                    <th> <?php echo $unit; ?> </th>
+                                <?php
+                                } else if ($unit > 500) {
+                                ?>
+                                    <th> 500 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $first_unit; ?></td>
                             <?php
                             }
                             ?>
-                            <td><?php echo $first_unit; ?></td>
                         </tr>
                     <?php
                     }
@@ -182,19 +204,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (isset($second_unit) && $second_unit != 0) {
                     ?>
                         <tr>
-                            <th> 50 x </th>
                             <?php
-                            if ($unit >= 31 && $unit <= 50) {
+                            if (isset($user_type) && $user_type == "home_use") {
                             ?>
-                                <th> <?php echo ($unit - 30); ?> </th>
+                                <th> 50 x </th>
+                                <?php
+                                if ($unit >= 31 && $unit <= 50) {
+                                ?>
+                                    <th> <?php echo ($unit - 30); ?> </th>
+                                <?php
+                                } else if ($unit > 50) {
+                                ?>
+                                    <th> 20 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $second_unit; ?></td>
                             <?php
-                            } else if ($unit > 50) {
+                            } else if (isset($user_type) && $user_type == "industry_use") {
                             ?>
-                                <th> 20 </th>
+                                <th> 135 x </th>
+                                <?php
+                                if ($unit >= 501 && $unit <= 5000) {
+                                ?>
+                                    <th> <?php echo ($unit - 500); ?> </th>
+                                <?php
+                                } else if ($unit > 5000) {
+                                ?>
+                                    <th> 4500 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $second_unit; ?></td>
                             <?php
                             }
                             ?>
-                            <td><?php echo $second_unit; ?></td>
                         </tr>
                     <?php
                     }
@@ -204,19 +248,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (isset($third_unit) && $third_unit != 0) {
                     ?>
                         <tr>
-                            <th> 70 x </th>
                             <?php
-                            if ($unit >= 51 && $unit <= 75) {
+                            if (isset($user_type) && $user_type == "home_use") {
                             ?>
-                                <th> <?php echo ($unit - 50); ?> </th>
+                                <th> 70 x </th>
+                                <?php
+                                if ($unit >= 51 && $unit <= 75) {
+                                ?>
+                                    <th> <?php echo ($unit - 50); ?> </th>
+                                <?php
+                                } else if ($unit > 75) {
+                                ?>
+                                    <th> 25 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $third_unit; ?></td>
                             <?php
-                            } else if ($unit > 75) {
+                            } else if (isset($user_type) && $user_type == "industry_use") {
                             ?>
-                                <th> 25 </th>
+                                <th> 145 x </th>
+                                <?php
+                                if ($unit >= 5001 && $unit <= 10000) {
+                                ?>
+                                    <th> <?php echo ($unit - 5000); ?> </th>
+                                <?php
+                                } else if ($unit > 10000) {
+                                ?>
+                                    <th> 5000 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $third_unit; ?></td>
                             <?php
                             }
                             ?>
-                            <td><?php echo $third_unit; ?></td>
                         </tr>
                     <?php
                     }
@@ -226,19 +292,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (isset($foruth_unit) && $foruth_unit != 0) {
                     ?>
                         <tr>
-                            <th> 90 x </th>
                             <?php
-                            if ($unit >= 76 && $unit <= 100) {
+                            if (isset($user_type) && $user_type == "home_use") {
                             ?>
-                                <th> <?php echo ($unit - 75); ?> </th>
+                                <th> 90 x </th>
+                                <?php
+                                if ($unit >= 76 && $unit <= 100) {
+                                ?>
+                                    <th> <?php echo ($unit - 75); ?> </th>
+                                <?php
+                                } else if ($unit > 100) {
+                                ?>
+                                    <th> 25 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $foruth_unit; ?></td>
                             <?php
-                            } else if ($unit > 100) {
+                            } else if (isset($user_type) && $user_type == "industry_use") {
                             ?>
-                                <th> 25 </th>
+                                <th> 155 x </th>
+                                <?php
+                                if ($unit >= 10001 && $unit <= 20000) {
+                                ?>
+                                    <th> <?php echo ($unit - 10000); ?> </th>
+                                <?php
+                                } else if ($unit > 20000) {
+                                ?>
+                                    <th> 10000 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $foruth_unit; ?></td>
                             <?php
                             }
                             ?>
-                            <td><?php echo $foruth_unit; ?></td>
                         </tr>
                     <?php
                     }
@@ -248,19 +336,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (isset($fifth_unit) && $fifth_unit != 0) {
                     ?>
                         <tr>
-                            <th> 110 x </th>
                             <?php
-                            if ($unit >= 101 && $unit <= 150) {
+                            if (isset($user_type) && $user_type == "home_use") {
                             ?>
-                                <th> <?php echo ($unit - 100); ?> </th>
+                                <th> 110 x </th>
+                                <?php
+                                if ($unit >= 101 && $unit <= 150) {
+                                ?>
+                                    <th> <?php echo ($unit - 100); ?> </th>
+                                <?php
+                                } else if ($unit > 150) {
+                                ?>
+                                    <th> 50 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $fifth_unit; ?></td>
                             <?php
-                            } else if ($unit > 150) {
+                            } else if (isset($user_type) && $user_type == "industry_use") {
                             ?>
-                                <th> 50 </th>
+                                <th> 167 x </th>
+                                <?php
+                                if ($unit >= 20001 && $unit <= 50000) {
+                                ?>
+                                    <th> <?php echo ($unit - 20000); ?> </th>
+                                <?php
+                                } else if ($unit > 50000) {
+                                ?>
+                                    <th> 30000 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $fifth_unit; ?></td>
                             <?php
                             }
                             ?>
-                            <td><?php echo $fifth_unit; ?></td>
                         </tr>
                     <?php
                     }
@@ -270,19 +380,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (isset($sixth_unit) && $sixth_unit != 0) {
                     ?>
                         <tr>
-                            <th> 120 x </th>
                             <?php
-                            if ($unit > 150 && $unit <= 200) {
+                            if (isset($user_type) && $user_type == "home_use") {
                             ?>
-                                <th> <?php echo ($unit - 150); ?>
+                                <th> 120 x </th>
                                 <?php
-                            } else if ($unit > 200) {
+                                if ($unit > 150 && $unit <= 200) {
                                 ?>
-                                <th> 50 </th>
+                                    <th> <?php echo ($unit - 150); ?>
+                                    <?php
+                                } else if ($unit > 200) {
+                                    ?>
+                                    <th> 50 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $sixth_unit; ?></td>
+                            <?php
+                            } else if (isset($user_type) && $user_type == "industry_use") {
+                            ?>
+                                <th> 175 x </th>
+                                <?php
+                                if ($unit > 50000 && $unit <= 100000) {
+                                ?>
+                                    <th> <?php echo ($unit - 50000); ?>
+                                    <?php
+                                } else if ($unit > 100000) {
+                                    ?>
+                                    <th> 50000 </th>
+                                <?php
+                                }
+                                ?>
+                                <td><?php echo $sixth_unit; ?></td>
                             <?php
                             }
                             ?>
-                            <td><?php echo $sixth_unit; ?></td>
                         </tr>
                     <?php
                     }
@@ -292,15 +424,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (isset($seventh_unit) && $seventh_unit != 0) {
                     ?>
                         <tr>
-                            <th> 125 x </th>
                             <?php
-                            if ($unit > 200) {
+                            if (isset($user_type) && $user_type == "home_use") {
                             ?>
-                                <th> <?php echo ($unit - 200); ?>
+                                <th> 125 x </th>
                                 <?php
-                            }
+                                if ($unit > 200) {
                                 ?>
-                                <td><?php echo $seventh_unit; ?></td>
+                                    <th> <?php echo ($unit - 200); ?>
+                                    <?php
+                                }
+                                    ?>
+                                    <td><?php echo $seventh_unit; ?></td>
+                                <?php
+                            } else if (isset($user_type) && $user_type == "industry_use") {
+                                ?>
+                                    <th> 180 x </th>
+                                    <?php
+                                    if ($unit > 100000) {
+                                    ?>
+                                        <th> <?php echo ($unit - 100000); ?>
+                                        <?php
+                                    }
+                                        ?>
+                                        <td><?php echo $seventh_unit; ?></td>
+                                    <?php
+                                }
+                                    ?>
                         </tr>
                     <?php
                     }
@@ -324,21 +474,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
                     <table class="table table-striped table-bordered mt-5">
-                    <?php
-                    if (isset($user_type) && $user_type == "home_use") {
-                    ?>
-                        <tr>
-                            <th colspan="3" class="text-center">Home Use</th>
-                        </tr>
-                    <?php
-                    } else if (isset($user_type) && $user_type == "industry_use") {
-                    ?>
-                        <tr>
-                            <th colspan="3" class="text-center">Industry Use</th>
-                        </tr>
-                    <?php
-                    }
-                    ?>
+                        <?php
+                        if (isset($user_type) && $user_type == "home_use") {
+                        ?>
+                            <tr>
+                                <th colspan="3" class="text-center">Home Use</th>
+                            </tr>
+                        <?php
+                        } else if (isset($user_type) && $user_type == "industry_use") {
+                        ?>
+                            <tr>
+                                <th colspan="3" class="text-center">Industry Use</th>
+                            </tr>
+                        <?php
+                        }
+                        ?>
                         <tr>
                             <th>Previous Month Meter Unit</th>
                             <td><?php echo $previous_month_meter_unit; ?></td>
