@@ -44,8 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sixth_unit = 120 * 50;
             $seventh_unit = 125 * ($unit - 200);
         }
-
-        $total = $first_unit + $second_unit + $third_unit + $foruth_unit + $fifth_unit + $sixth_unit + $seventh_unit;
     } else if ($user_type == "industry_use") {
         if ($unit >= 0 && $unit <= 500) {
             $first_unit = 125 * $unit;
@@ -83,9 +81,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sixth_unit = 175 * 50000;
             $seventh_unit = 180 * ($unit - 100000);
         }
-
-        $total = $first_unit + $second_unit + $third_unit + $foruth_unit + $fifth_unit + $sixth_unit + $seventh_unit;
     }
+    $total = $first_unit + $second_unit + $third_unit + $foruth_unit + $fifth_unit + $sixth_unit + $seventh_unit;
 }
 
 ?>
@@ -478,13 +475,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if (isset($user_type) && $user_type == "home_use") {
                         ?>
                             <tr>
-                                <th colspan="3" class="text-center">Home Use</th>
+                                <th colspan="2" class="text-center">Home Use</th>
                             </tr>
                         <?php
                         } else if (isset($user_type) && $user_type == "industry_use") {
                         ?>
                             <tr>
-                                <th colspan="3" class="text-center">Industry Use</th>
+                                <th colspan="2" class="text-center">Industry Use</th>
                             </tr>
                         <?php
                         }
