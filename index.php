@@ -102,20 +102,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
-                <form method="post" class="mt-5" action="">
-                    <div class="mb-4">
+            <div class="col-md-4 mt-4">
+                <form method="post" action="">
+                    <fieldset class="form-group border py-0 px-3">
+                        <legend class="w-auto px-2">Electric Grid</legend>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="user_type" id="home_use" value="home_use" checked>
-                            <label class="form-check-label" for="home_use">Home Use</label>
+                            <label class="form-check-label" for="home_use">Home Use (Union)</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="user_type" id="industry_use" value="industry_use">
-                            <label class="form-check-label" for="industry_use">Industry Use</label>
+                            <label class="form-check-label" for="industry_use">Industry Use (Union)</label>
+                        </div>
+                        <div class="form-check form-check-inline mb-3">
+                            <input class="form-check-input" type="radio" name="user_type" id="custom" value="custom">
+                            <label class="form-check-label" for="custom">Custom (Private)</label>
+                        </div>
+                    </fieldset>
+
+                    <div class="row" id="default">
+                        <div class="col-md-4">
+                            <div class="form-check form-check-inline mx-2">
+                                <input id="default_button" type="checkbox" name="default_button" value="default_button" class="mx-2">
+                                <label class="form-check-label" for="default_button">Default</label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-8 form-group">
+                            <input type="number" name="default_price" class="form-control default_price" id="default_price" placeholder="Price" required>
                         </div>
                     </div>
+                    
+
+
+                    <div class="row mt-2" id="all_row">
+
+                        <div class="col-md-3 form-group">
+                            <input type="number" name="from_unit[]" class="form-control from_unit" id="from_unit_1" data-id="1" placeholder="From" required>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <input type="number" name="to_unit[]" class="form-control to_unit" id="to_unit_1" data-id="1" placeholder="To" required>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <input type="number" name="price[]" class="form-control price" id="price_1" data-id="1" placeholder="Price" required>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <a href="#" class="btn btn-success btn-add">+</a>
+                        </div>
+                    </div>
+                    <span class="appear"></span>
 
                     <div class="form-group">
                         <label for="previous_month_meter_unit"> Previous Month Meter Unit </label>
@@ -128,12 +165,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-success btn-sm">Calculate</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Calculate</button>
                     </div>
                 </form>
             </div>
-            <div class="col-md-4">
-                <table class="table table-striped table-bordered mt-5">
+            <div class="col-md-4 mt-4">
+                <table class="table table-striped table-bordered mt-3">
 
                     <?php
                     if (isset($user_type) && $user_type == "home_use") {
@@ -466,11 +503,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ?>
                 </table>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mt-3">
                 <?php
                 if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
-                    <table class="table table-striped table-bordered mt-5">
+                    <table class="table table-striped table-bordered mt-4">
                         <?php
                         if (isset($user_type) && $user_type == "home_use") {
                         ?>
@@ -521,6 +558,96 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- bootstrap4 -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function() {
+            function addNewRow(row_count){
+                var temple = '<div class="row mt-2 remove_unit_price">' +
+                                '<div class="col-md-3 form-group">' +
+                                    '<input type="number" name="from_unit[]" class="form-control from_unit" id="from_unit_'+row_count+'" data-id="'+row_count+'" placeholder="From" required>' +
+                                '</div>' +
+                                '<div class="col-md-3 form-group">' +
+                                    '<input type="number" name="to_unit[]" class="form-control to_unit" id="to_unit_'+row_count+'" data-id="'+row_count+'" placeholder="To" required>' +
+                                '</div>' +
+                                '<div class="col-md-4 form-group">' +
+                                    '<input type="number" name="price[]" class="form-control price" id="price_'+row_count+'" data-id="'+row_count+'" placeholder="Price" required>' +
+                                '</div>' +
+                                '<div class="col-md-2 text-center">' +
+                                    '<a href="#" class="btn btn-danger btn-remove">-</a>' +
+                                '</div>' +
+                            '</div>';
+
+                return temple;
+            }
+            
+            var row_count = 1;
+            $('.btn-add').on('click',function(e){
+                row_count ++;
+                e.preventDefault();
+                let temple = addNewRow(row_count);
+                $('.appear').append(temple);
+            });
+
+            $(document).on('click','.btn-remove',function(e){
+                row_count--;
+                e.preventDefault();
+                $(this).parents('.remove_unit_price').remove();
+            });
+
+            $("#all_row").hide();
+            $("#from_unit_1").hide();
+            $("#to_unit_1").hide();
+            $("#price_1").hide();
+            $(".btn-add").hide();
+            $("#default").hide();
+            $("#default_price").hide();
+
+            $("input[name$='user_type']").click(function() {
+                if($(this).val() == "custom") {
+                    $("#all_row").show();
+                    $("#default").show();
+                    $("#from_unit_1").show();
+                    $("#to_unit_1").show();
+                    $("#price_1").show();
+                    $(".btn-add").show();
+                    $("#default_button").click(function () {
+                        if($(this).prop("checked") == true){
+                            $("#default_price").show();
+                            $("#all_row").hide();
+                            $("#from_unit_1").hide();
+                            $("#to_unit_1").hide();
+                            $("#price_1").hide();
+                            $(".btn-add").hide();
+                            $('.remove_unit_price').remove();
+                        } else {
+                            $("#default_price").hide();
+                            $("#all_row").show();
+                            $("#from_unit_1").show();
+                            $("#to_unit_1").show();
+                            $("#price_1").show();
+                            $(".btn-add").show();
+                        }
+                    });
+                } else {
+                    $("#from_unit_1").val("");
+                    $("#to_unit_1").val("");
+                    $("#price_1").val("");
+                    $("#default").hide();
+                    $("#from_unit_1").hide();
+                    $("#to_unit_1").hide();
+                    $("#price_1").hide();
+                    $(".btn-add").hide();
+                    $('.remove_unit_price').remove();
+                }
+            }); 
+
+            // $("input[name$='default_button']").click(function() {
+            //     if($(this).val() == "default_button") {
+            //         $("#default_price").hide();
+            //     }
+            // });
+        });
+    </script>
 </body>
 
 </html>
